@@ -9,6 +9,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 // Импорт модели User
 import { User } from './user.model';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Roles } from 'src/auth/roles-auth-decorators';
 
 // Декоратор для обьеденения всех операций на странице документации
 @ApiTags('Пользователи')
@@ -33,7 +34,7 @@ export class UsersController {
     @ApiOperation({summary: 'Получение всех пользователей'})
     // Декоатор описывает возможный ответ сервера
     @ApiResponse({status: 200, type: [User]})
-    @UseGuards(JwtAuthGuard)
+    @Roles('ADMIN')
     // Декоратор указыват, что следующий метод будет обрабатывать GET-запросы
     @Get()
     // Функция для получения всех пользователей
