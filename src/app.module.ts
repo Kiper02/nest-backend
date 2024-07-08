@@ -14,6 +14,7 @@ import { RolesModule } from './roles/roles.module';
 import { Role } from "./roles/roles.model";
 // Ипорт связной модели для User и Role 
 import { UserRoles } from "./roles/user-roles.model";
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -40,6 +41,7 @@ import { UserRoles } from "./roles/user-roles.model";
         //   Так как это основной модуль, сюда необходимо импортировать остальные
         UsersModule,
         RolesModule,
+        AuthModule,
     ]
 })
 // Экспортируем готовый модуль

@@ -15,6 +15,9 @@ import { UserRoles } from './user-roles.model';
   imports: [
     // Регистрация моделей. Это позволяет использовать их в пределах этого модуля
     SequelizeModule.forFeature([Role, User, UserRoles])
+  ],
+  exports: [
+    RolesService
   ]
 })
 export class RolesModule {}

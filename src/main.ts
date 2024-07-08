@@ -22,7 +22,6 @@ async function start() {
         const document = SwaggerModule.createDocument(app, config)
         // Настраиваем маршрут по которому будет доступна эта документация. По этому адресу будет пользовательский интерфейс Swagger, который отображает документация API, созданную на основе обьекта document
         SwaggerModule.setup('/api/docs', app, document)
-
     // Метод listen у экземпляра приложения прослушивает 5000 порт
     await app.listen(PORT, () => console.log(`Server started on port = ${PORT}`))
 }

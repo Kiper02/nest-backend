@@ -1,5 +1,5 @@
 // Импорт декоратора Module
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 // Импорт модуля UserContoller, управляющий входящими запросами, связанные с пользователями
 import { UsersController } from './users.controller';
 // Импорт модуля UserService, который содержит бизнес-логику приложения, такую как взаимодействие с базой данных для управления пользователями
@@ -12,6 +12,8 @@ import { User } from './user.model';
 import { Role } from 'src/roles/roles.model';
 // Импорт связной модели UserRoles 
 import { UserRoles } from 'src/roles/user-roles.model';
+import { RolesModule } from 'src/roles/roles.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 // Декоратор, который обьявляет класс ниже как модуль(в контексте nestjs)
 @Module({
@@ -22,7 +24,12 @@ import { UserRoles } from 'src/roles/user-roles.model';
   // imports это массив других модулей котрые необходимы для текущего модуля
   imports: [
     // Регистрирует модели, которые будут использоваться в рамках модуля, позволяя впоследствии инжектировать их в сервисы
-    SequelizeModule.forFeature([User, Role, UserRoles])
+    SequelizeModule.forFeature([User, Role, UserRoles]),
+    RolesModule,
+    forwardRef(() => AuthModule)
+  ],
+  exports: [
+    UsersService
   ]
 })
 // Экспорт модуля

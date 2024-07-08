@@ -1,5 +1,5 @@
 // Импорт модулей, каждый описан ниже
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 // класс DTO который определяет структуру данных, ожидаемых в теле POST запроса для создания пользователя
 import { CreateUserDto } from './dto/create-user.dto';
 // Сервис, который содержит бизнес-логику, связанную с пользователями, например создание новых пользователей и получение всех пользоватей
@@ -8,6 +8,7 @@ import { UsersService } from './users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 // Импорт модели User
 import { User } from './user.model';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 // Декоратор для обьеденения всех операций на странице документации
 @ApiTags('Пользователи')
@@ -32,6 +33,7 @@ export class UsersController {
     @ApiOperation({summary: 'Получение всех пользователей'})
     // Декоатор описывает возможный ответ сервера
     @ApiResponse({status: 200, type: [User]})
+    @UseGuards(JwtAuthGuard)
     // Декоратор указыват, что следующий метод будет обрабатывать GET-запросы
     @Get()
     // Функция для получения всех пользователей
